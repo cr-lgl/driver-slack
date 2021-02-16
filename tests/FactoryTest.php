@@ -5,21 +5,14 @@ namespace Tests;
 use Mockery as m;
 use BotMan\BotMan\BotMan;
 use React\EventLoop\Factory;
-use PHPUnit_Framework_TestCase;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\Drivers\Slack\SlackRTMDriver;
 
-class FactoryTest extends PHPUnit_Framework_TestCase
+class FactoryTest extends m\Adapter\Phpunit\MockeryTestCase
 {
-    public function tearDown()
-    {
-        m::close();
-    }
-
     /**
      * @test
-     *@runInSeparateProcess
      */
     public function it_registers_factory_methods()
     {

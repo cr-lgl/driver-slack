@@ -5,7 +5,6 @@ namespace Tests;
 use Mockery as m;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Http\Curl;
-use PHPUnit_Framework_TestCase;
 use Illuminate\Support\Collection;
 use BotMan\Drivers\Slack\SlackDriver;
 use BotMan\Drivers\Slack\Extensions\Menu;
@@ -17,13 +16,8 @@ use BotMan\BotMan\Middleware\MiddlewareManager;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
-class SlackDriverTest extends PHPUnit_Framework_TestCase
+class SlackDriverTest extends m\Adapter\Phpunit\MockeryTestCase
 {
-    public function tearDown()
-    {
-        m::close();
-    }
-
     private function getDriver($responseData, $htmlInterface = null)
     {
         $request = m::mock(Request::class.'[getContent]');
@@ -535,7 +529,11 @@ class SlackDriverTest extends PHPUnit_Framework_TestCase
             'user_name' => 'marcel',
             'text' => 'Hi Julia',
         ]);
-        $driver = new SlackDriver($request, [], m::mock(Curl::class));
+
+        $html = m::mock(Curl::class);
+        $html->shouldNotReceive('post');
+
+        $driver = new SlackDriver($request, [], $html);
         $driver->sendPayload($driver->buildServicePayload('test', $driver->getMessages()[0]));
     }
 
@@ -555,7 +553,11 @@ class SlackDriverTest extends PHPUnit_Framework_TestCase
             'command' => '/botman',
             'text' => 'Hi Julia',
         ]);
-        $driver = new SlackDriver($request, [], m::mock(Curl::class));
+
+        $html = m::mock(Curl::class);
+        $html->shouldNotReceive('post');
+
+        $driver = new SlackDriver($request, [], $html);
         $driver->sendPayload($driver->buildServicePayload('test', $driver->getMessages()[0]));
     }
 

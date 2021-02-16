@@ -14,14 +14,20 @@
             "email": "m.pociot@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "url": "https://github.com/cr-lgl/slack-client.git",
+            "type": "git"
+        }
+    ],
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.3",
         "botman/botman": "~2.1",
-        "mpociot/slack-client": "~1.0"
+        "mpociot/slack-client": "dev-master"
     },
     "require-dev": {
         "botman/studio-addons": "~1.0",
-        "phpunit/phpunit": "~5.0",
+        "phpunit/phpunit": "~9.4",
         "illuminate/console": "~5.0",
         "illuminate/support": "~5.0",
         "mockery/mockery": "dev-master",
